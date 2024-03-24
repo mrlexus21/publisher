@@ -19,6 +19,7 @@ class BookCategoryController extends AbstractController
      * @OA\Response(
      *     response=200,
      *     description="Returns book categories",
+     *
      *     @Model(type=BookCategoryListResponse)
      * )
      */

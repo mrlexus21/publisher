@@ -12,17 +12,8 @@ class BookCategory
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
     private ?int $id = null;
-
-    public function setId(?int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     #[ORM\Column(length: 255)]
     private string $title;
-
     #[ORM\Column(length: 255)]
     private string $slug;
 
