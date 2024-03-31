@@ -12,13 +12,14 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ApiEventListener
+class ApiExceptionListener
 {
     public function __construct(
         private ExceptionMappingResolver $resolver,
         private LoggerInterface $logger,
-        private SerializerInterface $serializer)
-    {
+        private SerializerInterface $serializer,
+        private bool $isDebug
+    ) {
     }
 
     public function __invoke(ExceptionEvent $event): void
@@ -38,10 +39,9 @@ class ApiEventListener
         }
 
         $message = $mapping->isHidden() ? Response::$statusTexts[$mapping->getCode()] : $throwable->getMessage();
+        $details = $this->isDebug ? ['trace' => $throwable->getTraceAsString()] : null;
+        $data = $this->serializer->serialize(new ErrorResponse($message, $details), JsonEncoder::FORMAT);
 
-        $data = $this->serializer->serialize(new ErrorResponse($message), JsonEncoder::FORMAT);
-        $response = new JsonResponse($data, $mapping->getCode(), [], true);
-
-        $event->setResponse($response);
+        $event->setResponse(new JsonResponse($data, $mapping->getCode(), [], true));
     }
 }

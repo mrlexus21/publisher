@@ -4,10 +4,10 @@ namespace App\Tests\Controller;
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
-use App\Tests\AbstractControllerTest;
+use App\Tests\AbstractControllerTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class BookControllerTest extends AbstractControllerTest
+class BookControllerTestCase extends AbstractControllerTestCase
 {
     public function testBooksByCategory()
     {

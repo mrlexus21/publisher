@@ -5,10 +5,10 @@ namespace App\Tests\Repository;
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Repository\BookRepository;
-use App\Tests\AbstractRepositoryTest;
+use App\Tests\AbstractRepositoryTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class BookRepositoryTest extends AbstractRepositoryTest
+class BookRepositoryTestCase extends AbstractRepositoryTestCase
 {
     private BookRepository $bookRepository;
 

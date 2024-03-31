@@ -3,24 +3,22 @@
 namespace App\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Helmich\JsonAssert\JsonAssertions;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class AbstractControllerTest extends WebTestCase
+abstract class AbstractRepositoryTestCase extends KernelTestCase
 {
-    use JsonAssertions;
-
-    protected KernelBrowser $client;
-
-    protected ?EntityManagerInterface $em;
+    protected ?EntityManagerInterface $entityManager;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->client = static::createClient();
         $this->em = self::getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    protected function getRepositoryForEntity(string $entityClass): mixed
+    {
+        return $this->em->getRepository($entityClass);
     }
 
     protected function tearDown(): void
