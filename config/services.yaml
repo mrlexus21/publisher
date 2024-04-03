@@ -6,7 +6,10 @@
 parameters:
     exceptions:
         App\Exception\BookCategoryNotFoundException: {code: 404, hidden: false}
-        Exception: {code: 502}
+        App\Exception\SubscriberAlreadyExistsException: {code: 409, hidden: false}
+        App\Exception\RequestBodyConvertException: {code: 400, hidden: false}
+        #App\Exception\ValidationException: {code: 400, hidden: false}
+        #Exception: {code: 502}
 
 services:
     # default configuration for services in *this* file
@@ -33,3 +36,7 @@ services:
     App\Listener\ApiExceptionListener:
         tags:
             - {name: kernel.event_listener, event: kernel.exception, priority: 10}
+
+    App\Listener\ValidationExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 15 }
