@@ -30,7 +30,7 @@ class SubscribeController extends AbstractController
         content: new Model(type: ErrorResponse::class)
     )]
     #[Route('/api/v1/subscribe', methods: ['POST'])]
-    public function action(#[RequestBody] SubscriberRequest $subscriberRequest): Response
+    public function subscribe(#[RequestBody] SubscriberRequest $subscriberRequest): Response
     {
         $this->subscriberService->subscribe($subscriberRequest);
 
