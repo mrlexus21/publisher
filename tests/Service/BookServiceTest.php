@@ -8,6 +8,7 @@ use App\Model\BookListItem;
 use App\Model\BookListResponse;
 use App\Repository\BookCategoryRepository;
 use App\Repository\BookRepository;
+use App\Repository\ReviewRepository;
 use App\Service\BookService;
 use App\Tests\AbstractTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,6 +17,7 @@ class BookServiceTest extends AbstractTestCase
 {
     public function testGetBooksByCategoryNotFound()
     {
+        $reviewRepository = $this->createMock(ReviewRepository::class);
         $bookRepository = $this->createMock(BookRepository::class);
         $bookCategoryRepository = $this->createMock(BookCategoryRepository::class);
         $bookCategoryRepository->expects($this->once())
@@ -25,12 +27,13 @@ class BookServiceTest extends AbstractTestCase
 
         $this->expectException(BookCategoryNotFoundException::class);
 
-        $service = new BookService($bookRepository, $bookCategoryRepository);
+        $service = new BookService($bookRepository, $bookCategoryRepository, $reviewRepository);
         $service->getBooksByCategory(120);
     }
 
     public function testGetBooksByCategory()
     {
+        $reviewRepository = $this->createMock(ReviewRepository::class);
         $bookRepository = $this->createMock(BookRepository::class);
         $bookCategoryRepository = $this->createMock(BookCategoryRepository::class);
 
@@ -44,7 +47,7 @@ class BookServiceTest extends AbstractTestCase
             ->with(120)
             ->willReturn(true);
 
-        $service = new BookService($bookRepository, $bookCategoryRepository);
+        $service = new BookService($bookRepository, $bookCategoryRepository, $reviewRepository);
         $expected = new BookListResponse([$this->createBookItemModel()]);
 
         $this->assertEquals($expected, $service->getBooksByCategory(120));
@@ -54,8 +57,10 @@ class BookServiceTest extends AbstractTestCase
     {
         $book = (new Book())
             ->setTitle('Test Book')
-            ->setPublicationDate(new \DateTime('2020-10-10'))
+            ->setPublicationDate(new \DateTimeImmutable('2020-10-10'))
             ->setMeap(false)
+            ->setIsbn('123456')
+            ->setDescription('test description')
             ->setAuthors(['Tester'])
             ->setSlug('test-book')
             ->setImage('image')

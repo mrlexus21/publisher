@@ -2,10 +2,10 @@
 
 namespace App\Model;
 
-class BookCategoryListItem
+class BookCategory
 {
     /**
-     * @var BookCategoryListItem[]
+     * @var BookCategory[]
      */
     private int $id;
     private string $title;

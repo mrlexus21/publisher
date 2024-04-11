@@ -37,9 +37,11 @@ class BookRepositoryTestCase extends AbstractRepositoryTestCase
     private function createBook(string $title, array $category): Book
     {
         return (new Book())
-            ->setPublicationDate(new \DateTime())
+            ->setPublicationDate(new \DateTimeImmutable())
             ->setAuthors(['author'])
             ->setMeap(false)
+            ->setIsbn('123456')
+            ->setDescription('test description')
             ->setSlug($title)
             ->setCategories(new ArrayCollection($category))
             ->setTitle($title)
