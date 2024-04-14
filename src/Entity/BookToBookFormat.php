@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class BookToBookFormat
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id;
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]

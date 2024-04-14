@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class BookFormat
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     private ?int $id;
     #[ORM\Column(type: 'string', length: 255)]
@@ -53,7 +53,7 @@ class BookFormat
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->comment = $comment;
 

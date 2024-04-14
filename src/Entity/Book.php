@@ -50,7 +50,7 @@ class Book
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        // $this->formats = new ArrayCollection();
+        $this->formats = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
 

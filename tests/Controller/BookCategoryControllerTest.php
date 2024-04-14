@@ -5,7 +5,7 @@ namespace App\Tests\Controller;
 use App\Entity\BookCategory;
 use App\Tests\AbstractControllerTestCase;
 
-class BookCategoryControllerTestCase extends AbstractControllerTestCase
+class BookCategoryControllerTest extends AbstractControllerTestCase
 {
     public function testCategories()
     {

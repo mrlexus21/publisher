@@ -6,7 +6,7 @@ use App\Entity\BookCategory;
 use App\Repository\BookCategoryRepository;
 use App\Tests\AbstractRepositoryTestCase;
 
-class BookCategoryRepositoryTestCase extends AbstractRepositoryTestCase
+class BookCategoryRepositoryTest extends AbstractRepositoryTestCase
 {
     private BookCategoryRepository $bookCategoryRepository;
 

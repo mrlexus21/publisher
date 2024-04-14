@@ -8,7 +8,7 @@ use App\Repository\BookRepository;
 use App\Tests\AbstractRepositoryTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class BookRepositoryTestCase extends AbstractRepositoryTestCase
+class BookRepositoryTest extends AbstractRepositoryTestCase
 {
     private BookRepository $bookRepository;
 

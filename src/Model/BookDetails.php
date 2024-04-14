@@ -16,7 +16,7 @@ class BookDetails
      */
     private array $authors;
     private bool $meap;
-    private int $publicationData;
+    private int $publicationDate;
 
     private float $rating;
     private int $reviews;
@@ -97,14 +97,14 @@ class BookDetails
         return $this;
     }
 
-    public function getPublicationData(): int
+    public function getPublicationDate(): int
     {
-        return $this->publicationData;
+        return $this->publicationDate;
     }
 
-    public function setPublicationData(int $publicationData): self
+    public function setPublicationDate(int $publicationDate): self
     {
-        $this->publicationData = $publicationData;
+        $this->publicationDate = $publicationDate;
 
         return $this;
     }
