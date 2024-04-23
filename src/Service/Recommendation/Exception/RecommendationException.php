@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Reccomendation\Exception;
+namespace App\Service\Recommendation\Exception;
 
 class RecommendationException extends \Exception
 {

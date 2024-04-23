@@ -39,7 +39,7 @@ class ApiExceptionListener
             ]);
         }
 
-        $message = $mapping->isHidden() ? Response::$statusTexts[$mapping->getCode()] : $throwable->getMessage();
+        $message = $mapping->isHidden() && !$this->isDebug ? Response::$statusTexts[$mapping->getCode()] : $throwable->getMessage();
         $details = $this->isDebug ? new ErrorDebugDetails($throwable->getTraceAsString()) : null;
         $data = $this->serializer->serialize(new ErrorResponse($message, $details), JsonEncoder::FORMAT);
 

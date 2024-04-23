@@ -160,7 +160,7 @@ class ApiExceptionListenerTest extends AbstractTestCase
             ->with(\InvalidArgumentException::class)
             ->willReturn($mapping);
 
-        $responseMessage = Response::$statusTexts[$mapping->getCode()];
+        $responseMessage = 'error message'; // Response::$statusTexts[$mapping->getCode()];
         $responseBody = json_encode(['error' => $responseMessage, 'trace' => 'something']);
 
         $this->serializer->expects($this->once())
@@ -177,7 +177,7 @@ class ApiExceptionListenerTest extends AbstractTestCase
                 JsonEncoder::FORMAT)
             ->willReturn($responseBody);
 
-        $event = $this->createExceptionEvent(new \InvalidArgumentException('error message'));
+        $event = $this->createExceptionEvent(new \InvalidArgumentException($responseMessage));
         $this->runListener($event, true);
 
         $this->assertResponse(Response::HTTP_NOT_FOUND, $responseBody, $event->getResponse());

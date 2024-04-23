@@ -6,8 +6,8 @@ use App\Entity\Book;
 use App\Model\RecommendedBook;
 use App\Model\RecommendedBookListResponse;
 use App\Repository\BookRepository;
-use App\Service\Reccomendation\Model\RecommendationItem;
-use App\Service\Reccomendation\RecommendationApiService;
+use App\Service\Recommendation\Model\RecommendationItem;
+use App\Service\Recommendation\RecommendationApiService;
 
 class RecommendationService
 {
