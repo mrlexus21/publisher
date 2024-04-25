@@ -62,7 +62,6 @@ class RecommendationControllerTest extends AbstractControllerTestCase
             ],
         ]);*/
         $this->assertEquals(1, 1);
-
     }
 
     private function createBook(): int
