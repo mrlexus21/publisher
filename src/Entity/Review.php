@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\ORM\HasLifecycleCallbacks()]
+#[ORM\HasLifecycleCallbacks()]
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
 {
