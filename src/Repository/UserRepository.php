@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -24,5 +25,15 @@ class UserRepository extends ServiceEntityRepository
     public function existsByEmail(string $email): bool
     {
         return null !== $this->findOneBy(['email' => $email]);
+    }
+
+    public function getUser(int $userId): User
+    {
+        $user = $this->find($userId);
+        if (null === $user) {
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 }

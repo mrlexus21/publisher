@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class RefreshToken extends AbstractRefreshToken
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column(type: 'integer')]
     protected $id;
     #[ORM\Column(type: 'string')]
