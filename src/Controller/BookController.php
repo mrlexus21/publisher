@@ -20,7 +20,7 @@ class BookController extends AbstractController
 
     #[OA\Response(
         response: 200,
-        description: 'Returns books inside a category',
+        description: 'Returns published books inside a category',
         content: new Model(type: BookListResponse::class)
     )]
     #[OA\Response(
@@ -36,7 +36,7 @@ class BookController extends AbstractController
 
     #[OA\Response(
         response: 200,
-        description: 'Returns book detail information',
+        description: 'Returns published book detail information',
         content: new Model(type: BookDetails::class)
     )]
     #[OA\Response(
