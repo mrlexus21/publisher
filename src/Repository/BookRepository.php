@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\BookToBookFormat;
 use App\Exception\BookNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -75,5 +76,42 @@ class BookRepository extends ServiceEntityRepository
     public function existsUserBookById(int $id, ?UserInterface $user): bool
     {
         return null !== $this->findOneBy(['id' => $id, 'user' => $user]);
+    }
+
+    public function save(Book $book): void
+    {
+        $this->getEntityManager()->persist($book);
+    }
+
+    public function remove(Book $book): void
+    {
+        $this->getEntityManager()->remove($book);
+    }
+
+    public function commit(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function saveAndCommit(Book $book): void
+    {
+        $this->save($book);
+        $this->commit();
+    }
+
+    public function removeAndCommit(Book $book): void
+    {
+        $this->remove($book);
+        $this->commit();
+    }
+
+    public function saveBookFormatReference(BookToBookFormat $bookToBookFormat): void
+    {
+        $this->getEntityManager()->persist($bookToBookFormat);
+    }
+
+    public function removeBookFormatReference(BookToBookFormat $bookToBookFormat): void
+    {
+        $this->getEntityManager()->remove($bookToBookFormat);
     }
 }

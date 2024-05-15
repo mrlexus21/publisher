@@ -6,9 +6,11 @@ namespace App\Controller;
 
 use App\Attribute\RequestBody;
 use App\Attribute\RequestFile;
+use App\Model\Author\BookDetails;
 use App\Model\Author\BookListResponse;
 use App\Model\Author\CreateBookRequest;
 use App\Model\Author\PublishBookRequest;
+use App\Model\Author\UpdateBookRequest;
 use App\Model\Author\UploadCoverResponse;
 use App\Model\ErrorResponse;
 use App\Model\IdResponse;
@@ -144,5 +146,44 @@ class AuthorController extends AbstractController
         $this->authorService->deleteBook($id);
 
         return $this->json(null);
+    }
+
+    #[OA\Tag(name: 'Author API')]
+    #[OA\Response(
+        response: 200,
+        description: 'Update a book',
+        content: new Model(type: BookListResponse::class)
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Validation failed',
+        content: new Model(type: ErrorResponse::class)
+    )]
+    #[OA\RequestBody(content: new Model(type: UpdateBookRequest::class))]
+    #[Route('/api/v1/author/book/{id}', methods: 'POST')]
+    #[IsGranted(AuthorBookVoter::IS_AUTHOR, subject: 'id')]
+    public function updateBook(int $id, #[RequestBody] UpdateBookRequest $request): Response
+    {
+        $this->authorService->updateBook($id, $request);
+
+        return $this->json(null);
+    }
+
+    #[OA\Tag(name: 'Author API')]
+    #[OA\Response(
+        response: 200,
+        description: 'Get authors owned books',
+        content: new Model(type: BookDetails::class)
+    )]
+    #[OA\Response(
+        response: 404,
+        description: 'Book not found',
+        content: new Model(type: ErrorResponse::class)
+    )]
+    #[Route('/api/v1/author/book/{id}', methods: 'GET')]
+    #[IsGranted(AuthorBookVoter::IS_AUTHOR, subject: 'id')]
+    public function book(int $id): Response
+    {
+        return $this->json($this->authorService->getBook($id));
     }
 }

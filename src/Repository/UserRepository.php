@@ -36,4 +36,20 @@ class UserRepository extends ServiceEntityRepository
 
         return $user;
     }
+
+    public function save(User $user): void
+    {
+        $this->getEntityManager()->persist($user);
+    }
+
+    public function commit(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function saveAndCommit(User $user): void
+    {
+        $this->save($user);
+        $this->commit();
+    }
 }
