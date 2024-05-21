@@ -26,7 +26,6 @@ class BookMapper
             ->setSlug($book->getSlug())
             ->setImage($book->getImage())
             ->setAuthors($book->getAuthors())
-            ->setMeap($book->isMeap())
             ->setPublicationDate($publicationDate);
     }
 
@@ -44,7 +43,8 @@ class BookMapper
     {
         return $book->getFormats()->map(
             fn (BookToBookFormat $formatJoin) => (new BookFormat())
-                ->setTitle($formatJoin->getFormat()->getId())
+                ->setId($formatJoin->getFormat()->getId())
+                ->setTitle($formatJoin->getFormat()->getTitle())
                 ->setDescription($formatJoin->getFormat()->getDescription())
                 ->setComment($formatJoin->getFormat()->getComment())
                 ->setPrice($formatJoin->getPrice())

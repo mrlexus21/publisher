@@ -2,14 +2,14 @@
 
 namespace App\Tests\Controller;
 
-use App\Entity\BookCategory;
 use App\Tests\AbstractControllerTestCase;
+use App\Tests\MockUtils;
 
 class BookCategoryControllerTest extends AbstractControllerTestCase
 {
     public function testCategories()
     {
-        $this->em->persist((new BookCategory())->setTitle('Devices')->setSlug('devices'));
+        $this->em->persist(MockUtils::createBookCategory());
         $this->em->flush();
 
         $this->client->request('GET', '/api/v1/book/categories');

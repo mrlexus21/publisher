@@ -50,16 +50,20 @@ class SubscriberServiceTest extends AbstractTestCase
         $expectSubscriber = new Subscriber();
         $expectSubscriber->setEmail(self::EMAIL);
 
-        $this->entityManager->expects($this->once())
+        /*$this->entityManager->expects($this->once())
             ->method('persist')
             ->with($expectSubscriber);
 
         $this->entityManager->expects($this->once())
-            ->method('flush');
+            ->method('flush');*/
 
         $subscribeRequest = new SubscriberRequest();
         $subscribeRequest->setEmail(self::EMAIL);
 
-        (new SubscriberService($this->subscriberRepository, $this->entityManager))->subscribe($subscribeRequest);
+        $this->subscriberRepository->expects($this->once())
+            ->method('saveAndCommit')
+            ->with($expectSubscriber);
+
+        (new SubscriberService($this->subscriberRepository))->subscribe($subscribeRequest);
     }
 }

@@ -56,7 +56,6 @@ class AuthorBookService
         $book = (new Book())
             ->setTitle($request->getTitle())
             ->setSlug($slug)
-            ->setMeap(false)
             ->setUser($user);
 
         $this->bookRepository->saveAndCommit($book);

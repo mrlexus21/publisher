@@ -25,13 +25,12 @@ class SignUpServiceTest extends AbstractTestCase
         parent::setUp();
         $this->hasher = $this->createMock(UserPasswordHasher::class);
         $this->userRepository = $this->createMock(UserRepository::class);
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
         $this->successHandler = $this->createMock(AuthenticationSuccessHandler::class);
     }
 
     private function createService(): SignUpService
     {
-        return new SignUpService($this->hasher, $this->userRepository, $this->entityManager, $this->successHandler);
+        return new SignUpService($this->hasher, $this->userRepository, $this->successHandler);
     }
 
     public function testSignUpUserAlreadyExists()
@@ -66,12 +65,9 @@ class SignUpServiceTest extends AbstractTestCase
         $expectedUser = clone $expectedHasherUser;
         $expectedUser->setPassword('hashed_password');
 
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
-        $this->entityManager->expects($this->once())
-            ->method('persist')
+        $this->userRepository->expects($this->once())
+            ->method('saveAndCommit')
             ->with($expectedUser);
-        $this->entityManager->expects($this->once())
-            ->method('flush');
 
         $response = new Response();
         $this->successHandler->expects($this->once())

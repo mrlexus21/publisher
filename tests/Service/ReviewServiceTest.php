@@ -108,7 +108,6 @@ class ReviewServiceTest extends AbstractTestCase
         $book = (new Book())
             ->setTitle('Test Book')
             ->setPublicationDate(new \DateTimeImmutable('2020-10-10'))
-            ->setMeap(false)
             ->setIsbn('123456')
             ->setDescription('test description')
             ->setAuthors(['Tester'])

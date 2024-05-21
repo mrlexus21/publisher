@@ -29,8 +29,6 @@ class Book
     private ?string $description;
     #[ORM\Column(type: 'date_immutable', nullable: true)]
     private ?\DateTimeInterface $publicationDate;
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
-    private bool $meap;
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(targetEntity: User::class)]
     private UserInterface $user;
@@ -114,18 +112,6 @@ class Book
     public function setPublicationDate(?\DateTimeInterface $publicationDate): Book
     {
         $this->publicationDate = $publicationDate;
-
-        return $this;
-    }
-
-    public function isMeap(): bool
-    {
-        return $this->meap;
-    }
-
-    public function setMeap(bool $meap): Book
-    {
-        $this->meap = $meap;
 
         return $this;
     }
